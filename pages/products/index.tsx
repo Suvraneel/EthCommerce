@@ -6,6 +6,7 @@ import StatCard from '../../components/Products/StatCard';
 import { statsData } from '../api/stats';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronCircleLeft, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
+import absoluteUrl from 'next-absolute-url'
 
 const Products: NextPage = ({ productsData }: any) => {
     const [products] = useState(productsData);
@@ -79,9 +80,10 @@ const Products: NextPage = ({ productsData }: any) => {
     )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({req}:any) {
+    const {origin} = absoluteUrl(req);
     try {
-        let res = await fetch("http://localhost:3000/api/posts", {
+        let res = await fetch(`${ origin }/api/posts`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
