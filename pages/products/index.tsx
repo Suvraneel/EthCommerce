@@ -83,7 +83,7 @@ const Products: NextPage = ({ productsData }: any) => {
 export async function getServerSideProps({req}:any) {
     const {origin} = absoluteUrl(req);
     try {
-        let res = await fetch(`${ origin }/api/posts`, {
+        let res = await fetch(`${ origin }/api/products`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

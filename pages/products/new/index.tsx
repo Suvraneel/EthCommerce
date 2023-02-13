@@ -9,6 +9,7 @@ import { productsData } from '../../api/pdts';
 import clientPromise from "../../../lib/mongodb";
 import { useRouter } from 'next/router'
 import { useAccount } from "wagmi";
+import absoluteUrl from 'next-absolute-url'
 
 type Product = () => {
     title: string;
@@ -79,7 +80,9 @@ const CreateProduct: NextPage = () => {
 
     // add post to db
     const addPost = async (product: Product) => {
-        let res = await fetch("http://localhost:3000/api/posts", {
+
+        const { origin } = absoluteUrl();
+        let res = await fetch(`${origin}/api/products`, {
             method: "POST",
             body: JSON.stringify({ ...product, author: accountData!.address }),
         });

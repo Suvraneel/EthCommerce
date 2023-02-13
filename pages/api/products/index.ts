@@ -1,5 +1,5 @@
 import { WithId, Document } from "mongodb";
-import clientPromise from "../../lib/mongodb";
+import clientPromise from "../../../lib/mongodb";
 
 export default async function handler(req: { method: any; body: string; }, res: { json: (arg0: { status: number; data: WithId<Document>[]; }) => void; }) {
   const client = await clientPromise;
