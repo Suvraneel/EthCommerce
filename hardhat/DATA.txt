@@ -1,0 +1,7 @@
+            Factory contract
+
+"Mantle" contract deployed to: 0xC651cda1575c6da36C43751cAaC30f757b96f8eC
+
+"Polygon Mumbai" contract deployed to: 0xFd4237fcE63743e37B107702dc71dFb3603FdaD5
+
+"FVM Spacewrap" contract deployed to: 0xC651cda1575c6da36C43751cAaC30f757b96f8eC
