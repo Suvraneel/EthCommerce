@@ -16,45 +16,14 @@ import { NFTStorage } from "nft.storage";
 const CustomizeTab = (props: any) => {
   const { hooks } = props;
   const { description, setDescription, file, setFile, tags, setTags } = hooks;
+  const [currDrop, setCurrDrop] = useState<string|undefined>();
   let fileInputRef = useRef<HTMLInputElement>(null);
   let tagInputRef = useRef<HTMLInputElement>(null);
-
-  // const deploy = async (e: any) => {
-  //   // Push file to lighthouse node
-  //   // Both file and folder supported by upload function
-  //   console.log("Uploading file to lighthouse node...");
-
-  //   const output = await lighthouse.uploadEncrypted(
-  //     e,
-  //     process.env.LIGHTHOUSE_API_KEY!
-  //   );
-
-  //   console.log("File Status:", output);
-  //   console.log(
-  //     "Visit at https://gateway.lighthouse.storage/ipfs/" + output.data.Hash
-  //   );
-  // };
-
-  // const upload = async (e: any) => {
-  //   const token =
-  //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGU2RDJDQjM0MzBFZDQyZDU0RjE5YzMzOTQ2Mjk3NURjQjdEQUEyOTUiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3NjI5NDAxODk3NywibmFtZSI6IkV0aEZvckFsbCJ9.saPkV4VHq3n_l92VWVIXwutmlwRJ4hO1Ebd8DnVo25s";
-
-  //   // pushing stuff to nft.storage
-  //   const storage = new NFTStorage({ token });
-
-  //   console.log(`storing file(s) `);
-  //   const cid = await storage.storeDirectory(e);
-  //   console.log({ cid });
-
-  //   console.log("stored");
-
-  //   const status = await storage.status(cid);
-  //   console.log(status);
-  // };
 
   const uploading = async (e: any) => {
     const storage = new ThirdwebStorage();
     const url = await storage.upload(e);
+    setFile(url?.split("//")[1]);
     console.log(url);
   };
 
@@ -117,14 +86,14 @@ const CustomizeTab = (props: any) => {
               className="hidden"
               onChange={(ev) => {
                 console.log("UPLOADING STUFF ON LIGHTHOUSE!!");
+                setCurrDrop(ev.target.files?.[0]?.name);
                 uploading(ev.target.files?.[0]);
                 console.log("UPLOADED STUFF ON LIGHTHOUSE!!");
-                setFile(ev.target.files?.[0]);
                 console.log(ev.target.files?.[0]);
               }}
             />
           </label>
-          {file && (
+          {currDrop && (
             <div className="w-full absolute bottom-0 px-4 py-2 flex flex-row justify-center items-center gap-2">
               <FontAwesomeIcon
                 icon={faXmark}
@@ -132,13 +101,14 @@ const CustomizeTab = (props: any) => {
                 className="h-6 w-6"
                 onClick={() => {
                   setFile(undefined);
+                  setCurrDrop(undefined);
                   if (fileInputRef.current) {
                     fileInputRef.current.value = "";
                   }
                 }}
               />
               <span className="font-medium text-gray-600 truncate">
-                {file?.name}
+                {currDrop}
               </span>
             </div>
           )}

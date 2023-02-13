@@ -1,24 +1,21 @@
+import { ThirdwebStorage } from "@thirdweb-dev/storage";
 import { NextPage } from "next";
-import { useEffect, useState, useReducer } from "react";
-import Breadcrumb from "../../../components/Breadcrumb";
-import Button from "./../../../components/Button";
-import BasicTab from "../../../components/Products/BasicTab";
-import CustomizeTab from "./../../../components/Products/CustomizeTab";
-import PreviewTab from "../../../components/Products/PreviewTab";
-import { productsData } from "../../api/pdts";
-import clientPromise from "../../../lib/mongodb";
-import { useRouter } from "next/router";
-import { useAccount } from "wagmi";
 import absoluteUrl from "next-absolute-url";
-import lighthouse from "@lighthouse-web3/sdk";
-import { NFTStorage } from "nft.storage";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useAccount } from "wagmi";
+import Breadcrumb from "../../../components/Breadcrumb";
+import BasicTab from "../../../components/Products/BasicTab";
+import PreviewTab from "../../../components/Products/PreviewTab";
+import Button from "./../../../components/Button";
+import CustomizeTab from "./../../../components/Products/CustomizeTab";
 
 type Product = () => {
   title: string;
   description: string;
   category: string;
   price: number;
-  file: File;
+  file: string;
   tags: string[];
 };
 
@@ -38,21 +35,24 @@ enum Category {
 
 const CreateProduct: NextPage = () => {
   const router = useRouter();
-  const [{ data: accountData, loading: accountLoading }] = useAccount();
+  const [{ data: accountData }] = useAccount();
   const tabItems = ["Basic", "Customize", "Preview"];
   const [activeTab, setActiveTab] = useState<number>(0);
   const [product, setProduct] = useState<Product | undefined>();
   const [name, setName] = useState<string | undefined>();
+  const [cover, setCover] = useState<string | undefined>()
   const [category, setCategory] = useState<Category | undefined>();
   const [price, setPrice] = useState<number | undefined>();
   const [description, setDescription] = useState<string | undefined>();
-  const [file, setFile] = useState<File | undefined>();
+  const [file, setFile] = useState<string | undefined>();
   const [tags, setTags] = useState<string[]>([]);
   const hooks = {
     product: product,
     setProduct: setProduct,
     name: name,
     setName: setName,
+    cover: cover,
+    setCover: setCover,
     category: category,
     setCategory: setCategory,
     price: price,
@@ -69,38 +69,25 @@ const CreateProduct: NextPage = () => {
     setProduct(() => {
       return {
         title: name as string,
+        cover: cover as string,
         category: category as unknown as string,
         price: price as number,
         description: description as string,
-        file: file as File,
+        file: file as string,
         tags: tags as string[],
         status: "Published",
       };
     });
   }, [name, category, price, description, file, tags]);
 
+  const uploading = async (e: any) => {
+    const storage = new ThirdwebStorage();
+    const url = await storage.upload(e);
+    console.log(url);
+  };
+
   // add post to db
   const addPost = async (product: Product) => {
-    // pushing stuff to lighthouse
-
-    // const dataURI = await lighthouse.upload(
-    //   product,
-    //   process.env.LIGHTHOUSE_API_KEY
-    // );
-
-    // const token =
-    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGU2RDJDQjM0MzBFZDQyZDU0RjE5YzMzOTQ2Mjk3NURjQjdEQUEyOTUiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3NjI5NDAxODk3NywibmFtZSI6IkV0aEZvckFsbCJ9.saPkV4VHq3n_l92VWVIXwutmlwRJ4hO1Ebd8DnVo25s";
-
-    // // pushing stuff to nft.storage
-    // const storage = new NFTStorage({ token });
-
-    // console.log(`storing file(s) `);
-    // const cid = await storage.storeDirectory(product.file);
-    // console.log({ cid });
-
-    // const status = await storage.status(cid);
-    // console.log(status);
-
     // pushing stuff to mongodb
     const { origin } = absoluteUrl();
     let res = await fetch(`${origin}/api/products`, {
@@ -108,6 +95,7 @@ const CreateProduct: NextPage = () => {
       body: JSON.stringify({ ...product, author: accountData!.address }),
     });
     let json = await res.json();
+    uploading(product);
     setProduct(undefined);
     router.replace("/products");
     console.log("added post", json);

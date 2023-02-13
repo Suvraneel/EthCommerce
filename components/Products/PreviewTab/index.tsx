@@ -6,8 +6,8 @@ import { Button } from "../..";
 
 const PreviewTab = (props: any) => {
   const { hooks } = props;
-  const { product } = hooks;
-  const [{ data: accountData, loading: accountLoading }] = useAccount();
+  const { product, cover } = hooks;
+  const [{ data: accountData }] = useAccount();
   return (
     <div className='w-full h-full flex flex-col items-start bg-white'>
       <div className='w-full h-full flex flex-row justify-start items-center outline-dashed rounded-md'>
@@ -15,13 +15,13 @@ const PreviewTab = (props: any) => {
           className='h-full w-3/5 block shrink justify-start items-center bg-contain bg-no-repeat border-r-2'
           style={{ backgroundImage: "url(/images/BlueGradient.png)" }}>
         </div> */}
-        <img src="/images/BlueGradient.png" alt="Product" className="h-full border-r-2 border-dashed" />
+        <img src={`https://ipfs.moralis.io:2053/ipfs/${ cover }`} alt="Product" className="w-1/3 h-full border-r-2 border-dashed object-contain" />
         <div
           className='w-full h-full flex flex-col justify-start items-start gap-5 p-5 text-black overflow-y-scroll'>
           <Button onClick={() => { }} className="w-full h-fit">
             <div className='relative flex flex-col items-start justify-start gap-5'>
               <div className='flex flex-row w-5/6 flex-wrap text-left'>
-                <p className='text-4xl lg:text-6xl font-bold'>{product?.name}</p>
+                <p className='text-4xl lg:text-6xl font-bold'>{product?.title}</p>
               </div>
               <h6 className="text-xl">Author: {accountData?.address}</h6>
               <h4 className="text-5xl">$ {product?.price?.toFixed(2)}</h4>
