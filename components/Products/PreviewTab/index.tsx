@@ -24,7 +24,7 @@ const PreviewTab = (props: any) => {
                 <p className='text-4xl lg:text-6xl font-bold'>{product?.name}</p>
               </div>
               <h6 className="text-xl">Author: {accountData?.address}</h6>
-              <h4 className="text-5xl">$ {product?.price.toFixed(2)}</h4>
+              <h4 className="text-5xl">$ {product?.price?.toFixed(2)}</h4>
             </div>
             <div className='absolute right-2 top-1 text-md font-bold flex flex-row justify-start items-center gap-2'>
               <FontAwesomeIcon icon={faCartShopping} className="w-6 h-6" />

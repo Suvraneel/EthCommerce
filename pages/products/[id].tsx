@@ -18,10 +18,6 @@ const Market: NextPage = ({ productData }: any) => {
                 </h1>
             </div>
         <div className='w-full h-5/6 flex flex-row justify-start items-center outline-dashed rounded-md'>
-          {/* <div
-          className='h-full w-3/5 block shrink justify-start items-center bg-contain bg-no-repeat border-r-2'
-          style={{ backgroundImage: "url(/images/BlueGradient.png)" }}>
-        </div> */}
           <img src="/images/BlueGradient.png" alt="Product" className="h-full border-r-2 border-dashed" />
           <div
             className='w-full h-full flex flex-col justify-start items-start gap-5 p-5 text-black overflow-y-scroll'>
