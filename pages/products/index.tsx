@@ -9,6 +9,7 @@ import { faChevronCircleLeft, faChevronCircleRight } from '@fortawesome/free-sol
 import absoluteUrl from 'next-absolute-url'
 
 const Products: NextPage = ({ productsData }: any) => {
+    productsData = productsData.reverse();
     const [products] = useState(productsData);
     const [stats] = useState(statsData);
     const [baseIdx, setBaseIdx] = useState(0);

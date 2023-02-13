@@ -78,7 +78,7 @@ const CreateProduct: NextPage = () => {
         status: "Published",
       };
     });
-  }, [name, category, price, description, file, tags]);
+  }, [name, cover, category, price, description, file, tags]);
 
   const uploading = async (e: any) => {
     const storage = new ThirdwebStorage();
