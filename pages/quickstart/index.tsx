@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import SplineObj from '../../components/SplineObject';
 
 const Quickstart: NextPage = () => {
     return (
@@ -8,9 +9,29 @@ const Quickstart: NextPage = () => {
                     Quickstart
                 </h1>
             </div>
-            <div className="w-full h-full flex flex-col justify-start items-center mt-20">
-                <div className="w-full h-fit flex flex-col justify-start items-start bg-white rounded-md border-2 border-black px-10 py-8">
-                    <div className='flex'></div>
+            <div className="w-full h-full flex flex-col justify-start items-center py-20 gap-10">
+                <div className="w-full h-full flex flex-row justify-start bg-white rounded-md border-2 border-black px-10 py-8 relative">
+                    <div className="flex flex-col justify-start gap-4 text-xl w-full sm:w-3/5">
+                        <h1 className='text-4xl font-bold'>Sell Your Merch</h1>
+                        <p>The Creator Economy is all about sharing your talents and offerings with the world. You can sell anything from courses, NFTs, services, audio, royalty, art, and more. Once you&apos;ve created your offerings, simply upload them to the platform and set your price in tokens.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt ornare nulla ut dictum. Cras pharetra quis augue et imperdiet. Nam egestas, orci ac tempor scelerisque, nisi massa tristique diam, quis elementum libero quam eget erat. Etiam quis efficitur urna. Duis nibh tortor, aliquam at elementum vitae, hendrerit vel velit. Fusce dignissim eros suscipit metus ullamcorper facilisis. Donec vestibulum ac sem ut commodo. Proin aliquet enim ac aliquet euismod.
+                        </p>
+                    </div>
+                    <div className='flex w-2/5 h-full overflow-hidden absolute right-0 top-0'>
+                        <SplineObj scene={'https://prod.spline.design/jg4voINZKC3lb6pv/scene.splinecode'} className='top-0 left-0' />
+                    </div>
+                </div>
+                <div className="w-full h-screen flex flex-row justify-end bg-white rounded-md border-2 border-black px-10 py-8 relative">
+                    <div className='flex w-2/5 h-full overflow-hidden absolute left-0 top-0'>
+                        <SplineObj scene={'https://prod.spline.design/q4ckei-dUrws-Koy/scene.splinecode'} className='bottom-0 right-0' />
+                    </div>
+                    <div className="flex flex-col justify-start gap-4 text-xl w-full sm:w-3/5">
+                        <h1 className='text-4xl font-bold'>Sell Your Metaverse Avatar or AR Character</h1>
+                        <p>
+                            The Creator Economy is all about sharing your talents and offerings with the world. You can sell anything from courses, NFTs, services, audio, royalty, art, and more. Once you&apos;ve created your offerings, simply upload them to the platform and set your price in tokens.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt ornare nulla ut dictum. Cras pharetra quis augue et imperdiet. Nam egestas, orci ac tempor scelerisque, nisi massa tristique diam, quis elementum libero quam eget erat. Etiam quis efficitur urna. Duis nibh tortor, aliquam at elementum vitae, hendrerit vel velit. Fusce dignissim eros suscipit metus ullamcorper facilisis. Donec vestibulum ac sem ut commodo. Proin aliquet enim ac aliquet euismod.
+                        </p>
+                    </div>
                 </div>
                 <div className="w-full h-fit flex flex-col justify-start items-start bg-white rounded-md border-2 border-black">
                     <div className="text-lg px-10 py-6">

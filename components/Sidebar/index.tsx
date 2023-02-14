@@ -17,7 +17,7 @@ import Link from 'next/link';
 
 export default function Sidebar() {
     const menu = [
-        { label: 'QuickStart', icon: faBoltLightning, disabled:true },
+        { label: 'QuickStart', icon: faBoltLightning, disabled:false },
         { label: 'Products', icon: faBox, disabled:false },
         { label: 'Posts', icon: faFile, disabled:true },
         { label: 'Audience', icon: faUsers, disabled:true },
