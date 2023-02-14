@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronCircleLeft, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
 import absoluteUrl from 'next-absolute-url'
 
-const Products: NextPage = ({ productsData }: any) => {
+const MyProducts: NextPage = ({ productsData }: any) => {
     productsData = productsData.reverse();
     const [products] = useState(productsData);
     const [stats] = useState(statsData);
@@ -23,7 +23,7 @@ const Products: NextPage = ({ productsData }: any) => {
         <div className='w-full h-full flex flex-col justify-evenly items-center gap-10 p-10 relative'>
             <div className='w-full h-fit flex flex-col justify-start gap-10 items-center sticky top-6 z-20'>
                 <h1 className='w-full text-5xl font-bold'>
-                    Products
+                    My Products
                 </h1>
             </div>
             <div className='w-full h-full flex flex-col sm:flex-row justify-end items-center'>
@@ -100,4 +100,4 @@ export async function getServerSideProps({req}:any) {
     }
 }
 
-export default Products;
+export default MyProducts;

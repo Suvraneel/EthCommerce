@@ -7,13 +7,14 @@ import { ThirdwebStorage } from '@thirdweb-dev/storage';
 const BasicTab = (props: any) => {
   const [categories] = useState(categoryData);
   const { hooks } = props;
-  const { name, setName, cover, setCover, category, setCategory, price, setPrice } = hooks;
+  const { name, setName, cover, setCover, category, setCategory, price, setPrice, setLoading } = hooks;
 
   const uploading = async (e: any) => {
     console.log(e);
     const storage = new ThirdwebStorage();
     const url = await storage.upload(e);
     setCover(url?.split("//")[1]);
+    setLoading(false);
     console.log(url);
   };
 
@@ -63,7 +64,7 @@ const BasicTab = (props: any) => {
                     </span>
                     :
                     <span>
-                      <span className="text-blue-600 underline">Browse</span> to Replace
+                      Drop/<span className="text-blue-600 underline">Browse</span> to Replace
                     </span>
                   }
                 </div>
@@ -73,6 +74,7 @@ const BasicTab = (props: any) => {
                   accept="image/*"
                   required
                   onChange={(event) => {
+                    setLoading(true);
                     uploading(event.target.files?.[0]);
                   }}
                 />

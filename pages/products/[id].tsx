@@ -1,24 +1,23 @@
+/* eslint-disable @next/next/no-img-element */
 import { faCartShopping, faHashtag } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NextPage } from 'next';
 import absoluteUrl from 'next-absolute-url';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Button } from '../../components';
 
-const Market: NextPage = ({ productData }: any) => {
-  const router = useRouter()
+const Product: NextPage = ({ productData }: any) => {
   const [product] = useState(productData);
   return (
     <>
       <div className='w-full h-full flex flex-col justify-evenly items-center gap-10 p-10 relative'>
       <div className='w-full h-fit flex flex-col justify-start gap-10 items-center sticky top-6 z-20'>
                 <h1 className='w-full text-5xl font-bold'>
-                    Market
+                    Product
                 </h1>
             </div>
         <div className='w-full h-5/6 flex flex-row justify-start items-center outline-dashed rounded-md'>
-          <img src={`https://ipfs.moralis.io:2053/ipfs/${ product?.cover }`} alt={`${product?.title} Image`} className="h-full border-r-2 border-dashed" />
+          <img src={`https://ipfs.moralis.io:2053/ipfs/${ product?.cover }`} alt={`${ product?.title } Image`} className="h-full border-r-2 border-dashed" />
           <div
             className='w-full h-full flex flex-col justify-start items-start gap-5 p-5 text-black overflow-y-scroll'>
             <Button onClick={() => { }} className="w-full h-fit">
@@ -78,4 +77,4 @@ export async function getServerSideProps({ req, params }: any) {
   }
 }
 
-export default Market;
+export default Product;

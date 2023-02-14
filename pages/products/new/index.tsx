@@ -9,6 +9,7 @@ import BasicTab from "../../../components/Products/BasicTab";
 import PreviewTab from "../../../components/Products/PreviewTab";
 import Button from "./../../../components/Button";
 import CustomizeTab from "./../../../components/Products/CustomizeTab";
+import HamsterLoader from "../../../components/HamsterLoader";
 
 type Product = () => {
   title: string;
@@ -46,6 +47,7 @@ const CreateProduct: NextPage = () => {
   const [description, setDescription] = useState<string | undefined>();
   const [file, setFile] = useState<string | undefined>();
   const [tags, setTags] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const hooks = {
     product: product,
     setProduct: setProduct,
@@ -63,6 +65,7 @@ const CreateProduct: NextPage = () => {
     setFile: setFile,
     tags: tags,
     setTags: setTags,
+    setLoading: setLoading
   };
 
   useEffect(() => {
@@ -88,6 +91,7 @@ const CreateProduct: NextPage = () => {
 
   // add post to db
   const addPost = async (product: Product) => {
+    setLoading(true);
     // pushing stuff to mongodb
     const { origin } = absoluteUrl();
     let res = await fetch(`${origin}/api/products`, {
@@ -96,6 +100,7 @@ const CreateProduct: NextPage = () => {
     });
     let json = await res.json();
     uploading(product);
+    setLoading(false);
     setProduct(undefined);
     router.replace("/products");
     console.log("added post", json);
@@ -103,6 +108,7 @@ const CreateProduct: NextPage = () => {
 
   return (
     <div className="w-full h-full flex flex-col justify-start items-start px-10 relative">
+      {/* floating modal in middle of screen */}
       <div className="w-full h-fit flex flex-col justify-start gap-10 items-center sticky top-6 z-20">
         <h1 className="w-full text-5xl">
           Awesome ! Create your Product here...
@@ -137,6 +143,10 @@ const CreateProduct: NextPage = () => {
         {activeTab === 1 && <CustomizeTab hooks={hooks} />}
         {activeTab === 2 && <PreviewTab hooks={hooks} />}
       </div>
+      {loading &&
+        <div className="w-1/3 h-1/3 flex justify-center items-center absolute top-1/3 left-1/3 z-10">
+          <HamsterLoader loaderTitle='Uploading to IPFS'/>
+        </div>}
     </div>
   );
 };

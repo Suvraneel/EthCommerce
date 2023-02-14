@@ -6,6 +6,7 @@ import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { WalletLinkConnector } from "wagmi/connectors/walletLink";
 import { Layout } from "../components";
 import "../styles/globals.css";
+import NextProgress from "next-progress";
 const infuraId = process.env.NEXT_PUBLIC_INFURA_ID;
 
 const chains = defaultChains;
@@ -39,6 +40,7 @@ const connectors = ({ chainId }: { chainId?: number }): Connector[] => {
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider autoConnect connectors={connectors}>
+      <NextProgress options={{ color: "#bff22d", showSpinner:false }} />
       <Layout>
         <Component {...pageProps} />
       </Layout>

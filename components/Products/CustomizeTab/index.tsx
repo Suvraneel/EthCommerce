@@ -15,7 +15,7 @@ import { NFTStorage } from "nft.storage";
 
 const CustomizeTab = (props: any) => {
   const { hooks } = props;
-  const { description, setDescription, file, setFile, tags, setTags } = hooks;
+  const { description, setDescription, file, setFile, tags, setTags, setLoading } = hooks;
   const [currDrop, setCurrDrop] = useState<string|undefined>();
   let fileInputRef = useRef<HTMLInputElement>(null);
   let tagInputRef = useRef<HTMLInputElement>(null);
@@ -24,6 +24,7 @@ const CustomizeTab = (props: any) => {
     const storage = new ThirdwebStorage();
     const url = await storage.upload(e);
     setFile(url?.split("//")[1]);
+    setLoading(false);
     console.log(url);
   };
 
@@ -86,6 +87,7 @@ const CustomizeTab = (props: any) => {
               className="hidden"
               onChange={(ev) => {
                 console.log("UPLOADING STUFF ON LIGHTHOUSE!!");
+                setLoading(true);
                 setCurrDrop(ev.target.files?.[0]?.name);
                 uploading(ev.target.files?.[0]);
                 console.log("UPLOADED STUFF ON LIGHTHOUSE!!");
