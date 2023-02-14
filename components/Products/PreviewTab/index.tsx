@@ -1,13 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { faCartShopping, faHashtag } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useAccount } from "wagmi";
 import { Button } from "../..";
 
 const PreviewTab = (props: any) => {
   const { hooks } = props;
-  const { product, cover } = hooks;
-  const [{ data: accountData }] = useAccount();
+  const { product, cover, author } = hooks;
   return (
     <div className='w-full h-full flex flex-col items-start bg-white'>
       <div className='w-full h-full flex flex-row justify-start items-center outline-dashed rounded-md'>
@@ -23,7 +21,7 @@ const PreviewTab = (props: any) => {
               <div className='flex flex-row w-5/6 flex-wrap text-left'>
                 <p className='text-4xl lg:text-6xl font-bold'>{product?.title}</p>
               </div>
-              <h6 className="text-xl">Author: {accountData?.address}</h6>
+              <h6 className="text-xl">Author: {author}</h6>
               <h4 className="text-5xl">$ {product?.price?.toFixed(2)}</h4>
             </div>
             <div className='absolute right-2 top-1 text-md font-bold flex flex-row justify-start items-center gap-2'>

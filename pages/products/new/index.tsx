@@ -96,7 +96,7 @@ const CreateProduct: NextPage = () => {
     const { origin } = absoluteUrl();
     let res = await fetch(`${origin}/api/products`, {
       method: "POST",
-      body: JSON.stringify({ ...product, author: accountData!.address }),
+      body: JSON.stringify({ ...product, author: accountData!.address, createdAt: new Date() }),
     });
     let json = await res.json();
     uploading(product);
@@ -108,7 +108,6 @@ const CreateProduct: NextPage = () => {
 
   return (
     <div className="w-full h-full flex flex-col justify-start items-start px-10 relative">
-      {/* floating modal in middle of screen */}
       <div className="w-full h-fit flex flex-col justify-start gap-10 items-center sticky top-6 z-20">
         <h1 className="w-full text-5xl">
           Awesome ! Create your Product here...

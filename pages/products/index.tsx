@@ -1,15 +1,14 @@
+import { faChevronCircleLeft, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NextPage } from 'next';
+import absoluteUrl from 'next-absolute-url';
 import { useState } from 'react';
 import NewPdtBtn from '../../components/Products/NewPdtBtn/index';
 import ProductRow from '../../components/Products/ProductRow';
 import StatCard from '../../components/Products/StatCard';
 import { statsData } from '../api/stats';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronCircleLeft, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
-import absoluteUrl from 'next-absolute-url'
 
 const MyProducts: NextPage = ({ productsData }: any) => {
-    productsData = productsData.reverse();
     const [products] = useState(productsData);
     const [stats] = useState(statsData);
     const [baseIdx, setBaseIdx] = useState(0);
@@ -93,7 +92,7 @@ export async function getServerSideProps({req}:any) {
         let products = await res.json();
 
         return {
-            props: { productsData: JSON.parse(JSON.stringify(products.data)) },
+            props: { productsData: JSON.parse(JSON.stringify(products.data))},
         };
     } catch (e) {
         console.error(e);
