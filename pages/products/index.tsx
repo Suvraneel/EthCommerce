@@ -35,7 +35,7 @@ const MyProducts: NextPage = ({ productsData }: any) => {
                     })
                 }
             </div>
-            <div className='w-full h-full flex flex-col justify-start items-center gap-0 divide-y-2 divide-slate-300'>
+            <div className='w-full h-full flex flex-col justify-start items-center gap-0 divide-y-2 divide-slate-300 relative shadow-md sm:rounded-lg'>
                 <table className='w-full h-full table overflow-auto table-auto text-sm text-left bg-white text-black'>
                     <thead className="table-header-group text-xl">
                         <tr className='table-row'>
@@ -50,9 +50,9 @@ const MyProducts: NextPage = ({ productsData }: any) => {
                             ))}
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className='w-full'>
                         {products.slice(baseIdx, baseIdx + 5).map((item: any, idx: any) => {
-                            return <ProductRow key={item.id} idx={baseIdx + idx} {...item} />
+                            return <ProductRow key={item._id} idx={baseIdx + idx} {...item} />
                         })}
                     </tbody>
                 </table>

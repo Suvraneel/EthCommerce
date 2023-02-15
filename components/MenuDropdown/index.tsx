@@ -16,7 +16,7 @@ export default function Example(props: Props) {
 
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <Menu.Button className="">
+      <Menu.Button>
         <Button>
           {label}
           <AiFillCaretDown className="w-5 h-5 ml-2 -mr-1" aria-hidden="true" />
@@ -33,7 +33,7 @@ export default function Example(props: Props) {
       >
         <Menu.Items className="absolute right-0 w-40 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg">
           {options.map(({ label, onClick }, idx) => (
-            <div key={`${idx}-${label}`} className="px-1 py-1 ">
+            <div key={label} className="px-1 py-1 ">
               <Menu.Item>
                 {({ active }) => (
                   <button

@@ -5,7 +5,7 @@ import HamsterLoader from "../HamsterLoader";
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
 });
-const SplineObj = (props:any) => {
+const SplineObject = (props:any) => {
   const [isDesktop, setDesktop] = useState(false);
 
   useEffect(() => {
@@ -26,12 +26,12 @@ const SplineObj = (props:any) => {
     return () => window.removeEventListener('resize', updateMedia);
   }, []);
   return (
-    <>
-      {isDesktop?(<Spline className={`h-full w-auto z-[1000] ${props.className}`} scene={props.scene} />):<></>}
-    </>
+    <Suspense fallback={<HamsterLoader loaderTitle='3D Scene Loading'/>}>
+      {isDesktop?(<Spline className="absolute top-0 right-0" scene={props.scene} />):<></>}
+    </Suspense>
   );
 };
 
 Spline.propTypes = {};
 
-export default SplineObj;
+export default SplineObject;

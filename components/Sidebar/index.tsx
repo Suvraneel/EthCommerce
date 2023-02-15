@@ -1,18 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faBoltLightning,
-    faBox,
-    faFile,
-    faUsers,
-    faChartBar,
-    faDollarSign,
-    faSearch,
     faBook,
-    faQuestion,
+    faBox,
+    faChartBar,
     faCog,
+    faDollarSign,
+    faFile,
+    faQuestion,
+    faSearch,
+    faUsers,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from 'next/link';
 
 export default function Sidebar() {

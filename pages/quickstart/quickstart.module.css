@@ -1,0 +1,18 @@
+  .sectionDiv {
+    width: 300px;
+    height: 400px;
+    position: relative;
+    max-height: 90vh;
+    margin: 20px;
+    background: white;
+    overflow: hidden;
+  }
+  
+  .progress {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: red;
+    bottom: 100px;
+  }

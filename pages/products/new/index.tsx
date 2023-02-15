@@ -36,7 +36,7 @@ enum Category {
 
 const CreateProduct: NextPage = () => {
   const router = useRouter();
-  const [{ data: accountData }] = useAccount();
+  const { address } = useAccount()
   const tabItems = ["Basic", "Customize", "Preview"];
   const [activeTab, setActiveTab] = useState<number>(0);
   const [product, setProduct] = useState<Product | undefined>();
@@ -96,7 +96,7 @@ const CreateProduct: NextPage = () => {
     const { origin } = absoluteUrl();
     let res = await fetch(`${origin}/api/products`, {
       method: "POST",
-      body: JSON.stringify({ ...product, author: accountData!.address, createdAt: new Date() }),
+      body: JSON.stringify({ ...product, author: address, createdAt: new Date() }),
     });
     let json = await res.json();
     uploading(product);

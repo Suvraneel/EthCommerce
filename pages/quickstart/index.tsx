@@ -1,5 +1,10 @@
 import { NextPage } from 'next';
-import SplineObj from '../../components/SplineObject';
+import SplineObject from '../../components/SplineObject';
+import {
+    motion,
+} from "framer-motion";
+import { useRef, useState } from 'react';
+import styles from './quickstart.module.css'
 
 const Quickstart: NextPage = () => {
     return (
@@ -18,12 +23,12 @@ const Quickstart: NextPage = () => {
                         </p>
                     </div>
                     <div className='flex w-2/5 h-full overflow-hidden absolute right-0 top-0'>
-                        <SplineObj scene={'https://prod.spline.design/jg4voINZKC3lb6pv/scene.splinecode'} className='top-0 left-0' />
+                        <SplineObject scene={'https://prod.spline.design/jg4voINZKC3lb6pv/scene.splinecode'} className='top-0 left-0' />
                     </div>
                 </div>
                 <div className="w-full h-screen flex flex-row justify-end bg-white rounded-md border-2 border-black px-10 py-8 relative">
                     <div className='flex w-2/5 h-full overflow-hidden absolute left-0 top-0'>
-                        <SplineObj scene={'https://prod.spline.design/q4ckei-dUrws-Koy/scene.splinecode'} className='bottom-0 right-0' />
+                        <SplineObject scene={'https://prod.spline.design/q4ckei-dUrws-Koy/scene.splinecode'} className='bottom-0 right-0' />
                     </div>
                     <div className="flex flex-col justify-start gap-4 text-xl w-full sm:w-3/5">
                         <h1 className='text-4xl font-bold'>Sell Your Metaverse Avatar or AR Character</h1>

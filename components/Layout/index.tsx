@@ -1,9 +1,16 @@
 import Head from "next/head";
 import Image from "next/image";
 import { ReactNode, useState } from "react";
-import { useAccount, useBalance } from "wagmi";
 import { Button, MenuDropdown, WalletOptionsModal } from "..";
 import Sidebar from "../Sidebar";
+import {
+  useAccount,
+  useConnect,
+  useDisconnect,
+  useEnsAvatar,
+  useEnsName,
+} from 'wagmi'
+
 interface Props {
   children: ReactNode;
 }
@@ -11,51 +18,46 @@ interface Props {
 export default function Layout(props: Props) {
   const { children } = props;
   const [showWalletOptions, setShowWalletOptions] = useState(false);
-  const [{ data: accountData, loading }, disconnect] = useAccount({
-    fetchEns: true,
-  });
-  const [{ data: balanceData, loading: balanceLoading }] = useBalance({
-    addressOrName: accountData?.address,
-    watch: true,
-  });
+  const { address, isConnected } = useAccount()
+  const { data: ensAvatar } = useEnsAvatar({ address })
+  const { data: ensName } = useEnsName({ address })
+  const { disconnect } = useDisconnect()
 
   const renderLabel = () => {
-    if (accountData?.ens) {
+    if (ensAvatar) {
       return (
         <>
           <div className="relative w-8 h-8 mr-2">
-            {accountData.ens.avatar ? (
+            {ensAvatar ? (
               <Image
-                src={accountData?.ens.avatar}
+                src={ensAvatar}
                 alt="ENS Avatar"
-                layout="fill"
-                objectFit="cover"
+                fill
                 className="rounded-full"
               />
             ) : (
               <Image
                 src="/images/black-gradient.png"
                 alt="ENS Avatar"
-                layout="fill"
-                objectFit="cover"
+                fill
                 className="rounded-full"
               />
             )}
           </div>
           <span className="truncate max-w-[100px]">
-            {accountData.ens?.name}
+            {ensName}
           </span>
         </>
       );
     }
 
     return (
-      <span className="truncate max-w-[150px]">{accountData?.address}</span>
+      <span className="truncate max-w-[108px]">{address}</span>
     );
   };
 
   const renderButton = () => {
-    if (accountData) {
+    if (isConnected) {
       return (
         <MenuDropdown
           label={renderLabel()}
@@ -66,7 +68,7 @@ export default function Layout(props: Props) {
 
     return (
       <Button
-        loading={loading || showWalletOptions}
+        loading={showWalletOptions}
         onClick={() => setShowWalletOptions(true)}
       >
         Connect
@@ -86,7 +88,7 @@ export default function Layout(props: Props) {
         open={showWalletOptions}
         setOpen={setShowWalletOptions}
       />
-      
+
       <div className="absolute w-full z-50">
         <div className="flex items-center justify-end px-10 py-5">
           {renderButton()}
@@ -94,7 +96,7 @@ export default function Layout(props: Props) {
       </div>
 
       <div className='w-full h-full flex flex-row justify-start items-center relative overflow-x-hidden'>
-        <Sidebar/>
+        <Sidebar />
         {children}
       </div>
     </div>

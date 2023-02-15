@@ -12,13 +12,12 @@ interface Props {
 export default function WalletOptionsModal(props: Props) {
   const { open, setOpen } = props;
 
-  const [{ data: connectData, loading: connectDataLoading, error }, connect] =
-    useConnect();
-  const [{ data: accountData }] = useAccount();
+  const { connect, connectors, error, isLoading, pendingConnector } = useConnect()
+  const { isConnected } = useAccount({})
 
   useEffect(() => {
-    accountData && setOpen(false);
-  }, [accountData, setOpen]);
+    isConnected && setOpen(false);
+  }, [isConnected, setOpen]);
 
   return open ? (
     <>
@@ -32,24 +31,27 @@ export default function WalletOptionsModal(props: Props) {
               </h3>
             </div>
 
-            {connectData.connectors.map((c) => (
-              <div key={c.id} className="mb-2 ml-2 mr-2 w-80">
+            {connectors.map((connector) => (
+              <div key={connector.id} className="mb-2 ml-2 mr-2 w-80">
                 <Button
-                  loading={connectDataLoading}
+                  disabled={!connector.ready}
                   width={80}
-                  disabled={!c.ready}
-                  onClick={() => connect(c)}
+                  onClick={() => connect({ connector })}
                 >
                   <>
                     <div className="mr-3">
                       <Image
-                        src={`/images/${c.id}.svg`}
-                        alt={c.name}
+                        src={`/images/${connector.id}.svg`}
+                        alt={connector.name}
                         height={32}
                         width={32}
                       />
                     </div>
-                    {`${c.name}${!c.ready ? " (unsupported)" : ""}`}
+                    {connector.name}
+                    {!connector.ready && ' (unsupported)'}
+                    {isLoading &&
+                      connector.id === pendingConnector?.id &&
+                      ' (connecting)'}
                   </>
                 </Button>
               </div>
@@ -59,7 +61,6 @@ export default function WalletOptionsModal(props: Props) {
                 {error?.message ?? "Failed to connect"}
               </div>
             )}
-
             <div className="flex items-center justify-end p-3 mt-1">
               <button
                 className="px-6 py-2 mb-1 text-sm font-semibold text-red-500 uppercase"
