@@ -1,14 +1,14 @@
+import { faChevronCircleLeft, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NextPage } from 'next';
+import absoluteUrl from 'next-absolute-url';
 import { useState } from 'react';
 import NewPdtBtn from '../../components/Products/NewPdtBtn/index';
 import ProductRow from '../../components/Products/ProductRow';
 import StatCard from '../../components/Products/StatCard';
 import { statsData } from '../api/stats';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronCircleLeft, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
-import absoluteUrl from 'next-absolute-url'
 
-const Products: NextPage = ({ productsData }: any) => {
+const MyProducts: NextPage = ({ productsData }: any) => {
     const [products] = useState(productsData);
     const [stats] = useState(statsData);
     const [baseIdx, setBaseIdx] = useState(0);
@@ -22,7 +22,7 @@ const Products: NextPage = ({ productsData }: any) => {
         <div className='w-full h-full flex flex-col justify-evenly items-center gap-10 p-10 relative'>
             <div className='w-full h-fit flex flex-col justify-start gap-10 items-center sticky top-6 z-20'>
                 <h1 className='w-full text-5xl font-bold'>
-                    Products
+                    My Products
                 </h1>
             </div>
             <div className='w-full h-full flex flex-col sm:flex-row justify-end items-center'>
@@ -92,11 +92,11 @@ export async function getServerSideProps({req}:any) {
         let products = await res.json();
 
         return {
-            props: { productsData: JSON.parse(JSON.stringify(products.data)) },
+            props: { productsData: JSON.parse(JSON.stringify(products.data))},
         };
     } catch (e) {
         console.error(e);
     }
 }
 
-export default Products;
+export default MyProducts;

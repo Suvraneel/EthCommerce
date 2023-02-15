@@ -1,0 +1,37 @@
+import React, { Suspense, useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import dynamic from "next/dynamic";
+import HamsterLoader from "../HamsterLoader";
+const Spline = dynamic(() => import("@splinetool/react-spline"), {
+  ssr: false,
+});
+const SplineObj = (props:any) => {
+  const [isDesktop, setDesktop] = useState(false);
+
+  useEffect(() => {
+    if (window.innerWidth > 550) {
+      setDesktop(true);
+    } else {
+      setDesktop(false);
+    }
+
+    const updateMedia = () => {
+      if (window.innerWidth > 550) {
+        setDesktop(true);
+      } else {
+        setDesktop(false);
+      }
+    };
+    window.addEventListener('resize', updateMedia);
+    return () => window.removeEventListener('resize', updateMedia);
+  }, []);
+  return (
+    <>
+      {isDesktop?(<Spline className={`h-full w-auto z-[1000] ${props.className}`} scene={props.scene} />):<></>}
+    </>
+  );
+};
+
+Spline.propTypes = {};
+
+export default SplineObj;

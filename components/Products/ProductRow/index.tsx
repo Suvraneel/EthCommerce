@@ -1,8 +1,10 @@
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
 import { ReactNode, useState } from 'react';
 
 interface PdtProps {
+    _id: string;
     id: number;
     idx: number;
     children?: ReactNode;
@@ -13,9 +15,10 @@ interface PdtProps {
 }
 
 const ProductRow = (props: PdtProps) => {
-    const { title, description, price, status, idx } = props;
+    const { title, description, price, status, idx, _id } = props;
     const [isInfo, setIsInfo] = useState(false);
     return (
+        <Link href={`/products/${_id}`} passHref>
         <tr className={`table-row ${idx%2&&"bg-slate-200"}`}>
             <td className='table-cell px-6 py-2  mono text-xl font-semibold'>{idx+1}</td>
             <th scope="row" className='relative flex flex-row  px-6 py-2 font-medium text-xl whitespace-nowrap justify-between'>{title}
@@ -36,6 +39,7 @@ const ProductRow = (props: PdtProps) => {
             <td className='text-xl table-cell px-6 py-2 mono font-semibold'>${price?.toFixed(2)}</td>
             <td className='text-xl table-cell px-6 py-2 mono'>{status}</td>
         </tr>
+        </Link>
     );
 };
 

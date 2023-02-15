@@ -1,7 +1,6 @@
-import React, { ReactNode } from 'react';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 interface CategoryProps {
     children?: ReactNode;
@@ -12,7 +11,7 @@ interface CategoryProps {
     setCategory: any;
 }
 const CategoryCard = (props: CategoryProps) => {
-    const { id, name, description, category, setCategory } = props;
+    const { name, description, category, setCategory } = props;
     const [isInfo, setIsInfo] = useState(false);
     return (
         <button className='relative w-full h-full flex flex-col sm:flex-row justify-between items-center p-5 group' onClick={() => setCategory(name)}>
