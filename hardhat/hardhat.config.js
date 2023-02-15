@@ -3,8 +3,10 @@ require("@nomiclabs/hardhat-etherscan");
 require("dotenv").config();
 
 const MUMBAI_RPC_URL = process.env.MUMBAI_RPC_URL;
+const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const POLYGONSCAN_API_KEY = process.env.POLYGONSCAN_API_KEY;
+const GOERLISCAN_API_KEY = process.env.GOERLISCAN_API_KEY;
 
 module.exports = {
   solidity: "0.8.9",
@@ -16,6 +18,10 @@ module.exports = {
     },
     mumbai: {
       url: MUMBAI_RPC_URL,
+      accounts: [PRIVATE_KEY],
+    },
+    goerli: {
+      url: GOERLI_RPC_URL,
       accounts: [PRIVATE_KEY],
     },
     "mantle-testnet": {
@@ -30,10 +36,10 @@ module.exports = {
   },
   etherscan: {
     apiKey: {
-      polygonMumbai: POLYGONSCAN_API_KEY,
+      // polygonMumbai: POLYGONSCAN_API_KEY,
+      goerli: GOERLISCAN_API_KEY,
     },
   },
 };
-
 
 // hyperspace = https://api.hyperspace.node.glif.io/rpc/v1
