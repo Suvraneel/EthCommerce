@@ -3,13 +3,15 @@ import { NextPage } from "next";
 import absoluteUrl from "next-absolute-url";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 import Breadcrumb from "../../../components/Breadcrumb";
 import BasicTab from "../../../components/Products/BasicTab";
 import PreviewTab from "../../../components/Products/PreviewTab";
 import Button from "./../../../components/Button";
 import CustomizeTab from "./../../../components/Products/CustomizeTab";
 import HamsterLoader from "../../../components/HamsterLoader";
+import { FACTORY_CONTRACT_ABI, MANTLE_FACTORY_CONTRACT_ADDRESS } from "../../../constants";
+import { error } from "console";
 
 type Product = () => {
   title: string;
@@ -48,6 +50,17 @@ const CreateProduct: NextPage = () => {
   const [file, setFile] = useState<string | undefined>();
   const [tags, setTags] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [tokenId, setTokenId] = useState('')
+  
+  const { config } = usePrepareContractWrite({
+    address: MANTLE_FACTORY_CONTRACT_ADDRESS,
+    abi: FACTORY_CONTRACT_ABI,
+    functionName: 'createCourse',
+    args: [tokenId, 10, 1000, '0x7219cdFBe59113DEa898B1bd15e0fE373c8471FB'],
+    enabled: Boolean(tokenId),
+  })
+  const { write } = useContractWrite(config)
+
   const hooks = {
     product: product,
     setProduct: setProduct,
@@ -86,6 +99,7 @@ const CreateProduct: NextPage = () => {
   const uploading = async (e: any) => {
     const storage = new ThirdwebStorage();
     const url = await storage.upload(e);
+    return url;
     console.log(url);
   };
 
@@ -99,7 +113,13 @@ const CreateProduct: NextPage = () => {
       body: JSON.stringify({ ...product, author: address, createdAt: new Date() }),
     });
     let json = await res.json();
-    uploading(product);
+    let tokenURI = await uploading(product);
+    setTokenId(tokenURI);
+    try{
+      write?.()
+    } catch(e) {
+      console.log(e);
+    }
     setLoading(false);
     setProduct(undefined);
     router.replace("/products");
@@ -144,7 +164,7 @@ const CreateProduct: NextPage = () => {
       </div>
       {loading &&
         <div className="w-1/3 h-1/3 flex justify-center items-center absolute top-1/3 left-1/3 z-10">
-          <HamsterLoader loaderTitle='Uploading to IPFS'/>
+          <HamsterLoader loaderTitle='Uploading to IPFS' />
         </div>}
     </div>
   );

@@ -27,7 +27,7 @@ const SplineObject = (props:any) => {
   }, []);
   return (
     <Suspense fallback={<HamsterLoader loaderTitle='3D Scene Loading'/>}>
-      {isDesktop?(<Spline className="absolute top-0 right-0" scene={props.scene} />):<></>}
+      {isDesktop?(<Spline className="" scene={props.scene} />):<></>}
     </Suspense>
   );
 };
