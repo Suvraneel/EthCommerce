@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useEffect } from "react";
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
-import { useAccount, useConnect } from "wagmi";
+import { useAccount, useConnect, useNetwork, useSwitchNetwork } from "wagmi";
 import Button from "../Button";
 
 interface Props {
@@ -12,8 +12,11 @@ interface Props {
 export default function WalletOptionsModal(props: Props) {
   const { open, setOpen } = props;
 
-  const { connect, connectors, error, isLoading, pendingConnector } = useConnect()
-  const { isConnected } = useAccount({})
+  const { connect, connectors, error, isLoading, pendingConnector } =
+    useConnect();
+  const { isConnected } = useAccount({});
+  const { chain } = useNetwork();
+  const { chains, pendingChainId, switchNetwork } = useSwitchNetwork();
 
   useEffect(() => {
     isConnected && setOpen(false);
@@ -36,7 +39,10 @@ export default function WalletOptionsModal(props: Props) {
                 <Button
                   disabled={!connector.ready}
                   width={80}
-                  onClick={() => connect({ connector })}
+                  onClick={() => {
+                    connect({ connector });
+                    switchNetwork?.(137);
+                  }}
                 >
                   <>
                     <div className="mr-3">
@@ -48,10 +54,10 @@ export default function WalletOptionsModal(props: Props) {
                       />
                     </div>
                     {connector.name}
-                    {!connector.ready && ' (unsupported)'}
+                    {!connector.ready && " (unsupported)"}
                     {isLoading &&
                       connector.id === pendingConnector?.id &&
-                      ' (connecting)'}
+                      " (connecting)"}
                   </>
                 </Button>
               </div>
