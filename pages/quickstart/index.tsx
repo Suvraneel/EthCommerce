@@ -1,44 +1,48 @@
 import { NextPage } from 'next';
 import SplineObject from '../../components/SplineObject';
-import {
-    motion,
-} from "framer-motion";
-import { useRef, useState } from 'react';
-import styles from './quickstart.module.css'
 
 const Quickstart: NextPage = () => {
     return (
-        <div className="w-full h-full flex flex-col justify-start items-start px-10 relative">
+        <div className="w-full h-full flex flex-col justify-start items-start py-10 relative">
             <div className="w-full h-fit flex flex-col justify-start gap-10 items-center sticky top-6 z-20">
-                <h1 className="w-full text-5xl">
+                <h1 className="w-full text-5xl py-3">
                     Quickstart
                 </h1>
             </div>
-            <div className="w-full h-full flex flex-col justify-start items-center py-20 gap-10">
-                <div className="w-full h-full flex flex-row justify-start bg-white rounded-md border-2 border-black px-10 py-8 relative">
+            <div className="w-full h-full flex flex-col justify-start items-center py-20 gap-10 snap-y snap-mandatory overflow-y-scroll scroll-hidden">
+                <div className="w-full h-fit flex flex-row justify-start bg-white rounded-md border-2 border-black px-10 py-8 relative snap-center snap-always">
                     <div className="flex flex-col justify-start gap-4 text-xl w-full sm:w-3/5">
-                        <h1 className='text-4xl font-bold'>Sell Your Merch</h1>
-                        <p>The Creator Economy is all about sharing your talents and offerings with the world. You can sell anything from courses, NFTs, services, audio, royalty, art, and more. Once you&apos;ve created your offerings, simply upload them to the platform and set your price in tokens.
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt ornare nulla ut dictum. Cras pharetra quis augue et imperdiet. Nam egestas, orci ac tempor scelerisque, nisi massa tristique diam, quis elementum libero quam eget erat. Etiam quis efficitur urna. Duis nibh tortor, aliquam at elementum vitae, hendrerit vel velit. Fusce dignissim eros suscipit metus ullamcorper facilisis. Donec vestibulum ac sem ut commodo. Proin aliquet enim ac aliquet euismod.
+                        <h1 className='text-4xl font-bold'>Create Your Own Fashion Empire with Our Customizable Merch Store!</h1>
+                        <p>
+                            At our customizable ecommerce store for your merch, we empower you to unleash your creativity and bring your fashion vision to life. Our platform offers a range of customizable options for you to choose from, so you can design merchandise that reflects your unique style and brand.
+                        </p><p>
+                            Whether you&apos;re an artist, musician, or entrepreneur, our merch store can help you build your brand and create a following that resonates with your audience.
+                        </p><p>
+                            Our platform also offers a range of features to help you sell your products, including built-in payment processing, shipping integrations, and analytics to help you track your sales and performance. And with our customizable storefront, you can create a branded shopping experience that&apos;s unique to your brand and appeals to your customers.
+                        </p><p>
+                            So why wait? Join the thousands of creators who have already built their fashion empires with our customizable merch store. Start designing your own line of clothing and accessories today and make your mark on the fashion industry.
                         </p>
                     </div>
                     <div className='flex w-2/5 h-full overflow-hidden absolute right-0 top-0'>
                         <SplineObject scene={'https://prod.spline.design/jg4voINZKC3lb6pv/scene.splinecode'} className='top-0 left-0' />
                     </div>
                 </div>
-                <div className="w-full h-screen flex flex-row justify-end bg-white rounded-md border-2 border-black px-10 py-8 relative">
+                <div className="w-full h-fit flex flex-row justify-end bg-white rounded-md border-2 border-black px-10 py-8 relative snap-center snap-always">
                     <div className='flex w-2/5 h-full overflow-hidden absolute left-0 top-0'>
                         <SplineObject scene={'https://prod.spline.design/q4ckei-dUrws-Koy/scene.splinecode'} className='bottom-0 right-0' />
                     </div>
                     <div className="flex flex-col justify-start gap-4 text-xl w-full sm:w-3/5">
-                        <h1 className='text-4xl font-bold'>Sell Your Metaverse Avatar or AR Character</h1>
+                        <h1 className='text-4xl font-bold'>Turn Your Virtual Self into Real Profit with Our Avatar and AR Character Marketplace!</h1>
                         <p>
-                            The Creator Economy is all about sharing your talents and offerings with the world. You can sell anything from courses, NFTs, services, audio, royalty, art, and more. Once you&apos;ve created your offerings, simply upload them to the platform and set your price in tokens.
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt ornare nulla ut dictum. Cras pharetra quis augue et imperdiet. Nam egestas, orci ac tempor scelerisque, nisi massa tristique diam, quis elementum libero quam eget erat. Etiam quis efficitur urna. Duis nibh tortor, aliquam at elementum vitae, hendrerit vel velit. Fusce dignissim eros suscipit metus ullamcorper facilisis. Donec vestibulum ac sem ut commodo. Proin aliquet enim ac aliquet euismod.
+                            Our Avatar and AR Character Marketplace offers you the opportunity to monetize your virtual self and create a new revenue stream. Whether you've spent countless hours customizing your Metaverse avatar or designing a unique AR character, our platform empowers you to sell your creations to a wide audience of buyers.
+                        </p><p>
+                            We make it easy to list your avatar or AR character on our platform and connect with potential buyers who are looking for unique and personalized virtual identities. Our platform provides a secure and transparent marketplace for transactions, so you can sell your avatar or AR character with confidence.
+                        </p><p>
+                            In addition, we offer a range of features to help you manage your sales and transactions, including order management, payment processing, and dispute resolution. Our goal is to make it as easy as possible for you to monetize your virtual self and turn your passion for virtual customization into real profit.
                         </p>
                     </div>
                 </div>
-                <div className="w-full h-fit flex flex-col justify-start items-start bg-white rounded-md border-2 border-black">
+                <div className="w-full h-fit flex flex-col justify-start items-start bg-white rounded-md border-2 border-black snap-center snap-always">
                     <div className="text-lg px-10 py-6">
                         <p className="text-lg">
                             In this guide, we&apos;ll walk you through the steps to get started in this exciting new economy where you can sell your courses, NFTs, services, audio, royalty, art, and more.
