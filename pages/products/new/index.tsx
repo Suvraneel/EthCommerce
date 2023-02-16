@@ -99,9 +99,21 @@ const CreateProduct: NextPage = () => {
   const uploading = async (e: any) => {
     const storage = new ThirdwebStorage();
     const url = await storage.upload(e);
-    return url;
     console.log(url);
+    kuchbhi(url);
+    return url;
   };
+
+  const kuchbhi = (tokenURI:any) => {
+    setTokenId(tokenURI);
+    console.log(tokenId);
+    try{
+      console.log('write', write);
+      write?.()
+    } catch(e) {
+      console.log(e);
+    }
+  }
 
   // add post to db
   const addPost = async (product: Product) => {
@@ -113,13 +125,7 @@ const CreateProduct: NextPage = () => {
       body: JSON.stringify({ ...product, author: address, createdAt: new Date() }),
     });
     let json = await res.json();
-    let tokenURI = await uploading(product);
-    setTokenId(tokenURI);
-    try{
-      write?.()
-    } catch(e) {
-      console.log(e);
-    }
+    uploading(product);
     setLoading(false);
     setProduct(undefined);
     router.replace("/products");
