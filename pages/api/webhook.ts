@@ -6,7 +6,7 @@ export default async function handler(
 ) {
     // const payload = JSON.parse(req.body);
     const payload = req.body;
-    console.log(payload);
+    console.log(payload); 
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
