@@ -1,9 +1,8 @@
 import { WithId, Document } from "mongodb";
 import clientPromise from "../../../lib/mongodb";
+import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(req: {
-  query: any; method: any; body: string; 
-}, res: { json: (arg0: { status: number; data: WithId<Document>[]; }) => void; }) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const client = await clientPromise;
   const db = client.db("gumroad");
   switch (req.method) {
