@@ -3,13 +3,13 @@ import SplineObject from '../../components/SplineObject';
 
 const Quickstart: NextPage = () => {
     return (
-        <div className="w-full h-full flex flex-col justify-start items-start py-10 relative">
-            <div className="w-full h-fit flex flex-col justify-start gap-10 items-center sticky top-6 z-20">
-                <h1 className="w-full text-5xl py-3">
+        <div className="w-full h-full flex flex-col justify-start items-start relative">
+            <div className="w-full h-fit flex flex-col justify-start gap-10 items-center sticky top-5 z-20">
+                <h1 className="w-full text-5xl font-semibold px-10">
                     Quickstart
                 </h1>
             </div>
-            <div className="w-full h-full flex flex-col justify-start items-center py-20 gap-10 snap-y snap-mandatory overflow-y-scroll scroll-hidden">
+            <div className="w-full h-full flex flex-col justify-start items-center py-20 gap-10 snap-y snap-mandatory overflow-y-scroll scroll-hidden scroll-p-5 scroll-m-5 px-10">
                 <div className="w-full h-fit flex flex-row justify-start bg-white rounded-md border-2 border-black px-10 py-8 relative snap-center snap-always">
                     <div className="flex flex-col justify-start gap-4 text-xl w-full sm:w-3/5">
                         <h1 className='text-4xl font-bold'>Create Your Own Fashion Empire with Our Customizable Merch Store!</h1>
@@ -23,18 +23,18 @@ const Quickstart: NextPage = () => {
                             So why wait? Join the thousands of creators who have already built their fashion empires with our customizable merch store. Start designing your own line of clothing and accessories today and make your mark on the fashion industry.
                         </p>
                     </div>
-                    <div className='flex w-2/5 h-full overflow-hidden absolute right-0 top-0'>
-                        <SplineObject scene={'https://prod.spline.design/jg4voINZKC3lb6pv/scene.splinecode'} className='top-0 left-0' />
+                    <div className='flex w-2/5 h-full overflow-hidden flex-col justify-center item-center'>
+                        <SplineObject scene={'https://prod.spline.design/jg4voINZKC3lb6pv/scene.splinecode'} className='' />
                     </div>
                 </div>
                 <div className="w-full h-fit flex flex-row justify-end bg-white rounded-md border-2 border-black px-10 py-8 relative snap-center snap-always">
-                    <div className='flex w-2/5 h-full overflow-hidden absolute left-0 top-0'>
-                        <SplineObject scene={'https://prod.spline.design/q4ckei-dUrws-Koy/scene.splinecode'} className='bottom-0 right-0' />
+                    <div className='flex w-2/5 h-full overflow-hidden flex-col justify-center item-center'>
+                        <SplineObject scene={'https://prod.spline.design/q4ckei-dUrws-Koy/scene.splinecode'} className='' />
                     </div>
                     <div className="flex flex-col justify-start gap-4 text-xl w-full sm:w-3/5">
                         <h1 className='text-4xl font-bold'>Turn Your Virtual Self into Real Profit with Our Avatar and AR Character Marketplace!</h1>
                         <p>
-                            Our Avatar and AR Character Marketplace offers you the opportunity to monetize your virtual self and create a new revenue stream. Whether you've spent countless hours customizing your Metaverse avatar or designing a unique AR character, our platform empowers you to sell your creations to a wide audience of buyers.
+                            Our Avatar and AR Character Marketplace offers you the opportunity to monetize your virtual self and create a new revenue stream. Whether you&apos;ve spent countless hours customizing your Metaverse avatar or designing a unique AR character, our platform empowers you to sell your creations to a wide audience of buyers.
                         </p><p>
                             We make it easy to list your avatar or AR character on our platform and connect with potential buyers who are looking for unique and personalized virtual identities. Our platform provides a secure and transparent marketplace for transactions, so you can sell your avatar or AR character with confidence.
                         </p><p>
