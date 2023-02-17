@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { alchemyProvider } from "wagmi/providers/alchemy";
 
@@ -84,6 +84,13 @@ const wagmiClient = createClient({
 });
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    const source = new EventSource('/api/webhook');
+    source.addEventListener('message', event => {
+      console.log(event.data);
+      alert(event.data);
+    });
+  }, []);
   return (
     <WagmiConfig client={wagmiClient}>
       <NextProgress options={{ color: "#bff22d", showSpinner: false }} />
