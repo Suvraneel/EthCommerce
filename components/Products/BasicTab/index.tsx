@@ -7,7 +7,7 @@ import { ThirdwebStorage } from '@thirdweb-dev/storage';
 const BasicTab = (props: any) => {
   const [categories] = useState(categoryData);
   const { hooks } = props;
-  const { name, setName, cover, setCover, category, setCategory, price, setPrice, setLoading } = hooks;
+  const { name, setName, cover, setCover, category, setCategory, price, setPrice, supply, setSupply, setLoading } = hooks;
 
   const uploading = async (e: any) => {
     console.log(e);
@@ -93,23 +93,40 @@ const BasicTab = (props: any) => {
           })}
         </fieldset>
       </div>
-
-      <div className='w-full h-full flex flex-col justify-start gap-3 items-start'>
-        <h2 className='text-xl font-bold'>Price</h2>
-        <div className='w-full'>
-          <div
-            id='item_name'
-            className='w-full bg-white sm:w-80 rounded-md px-5 py-3 shadow-md shadow-accent border-2 border-black/50 border-t-accent border-l-accent focus-within:border-black/50 focus-within:border-b-accent focus-within:border-r-accent focus-within:outline-none text-light-font transition-all flex justify-start gap-3'>
-            <span className='text-xl font-bold'>$</span>
-            <input
-              type='number'
-              min={0.00}
-              step={0.01}
-              className='w-full outline-none'
-              placeholder='Amount'
-              required
-              onInput={(event) => setPrice(parseFloat((event.target as HTMLInputElement).value))}
-              value={price} />
+      <div className='w-full h-full flex flex-col sm:flex-row justify-start gap-5 items-center'>
+        <div className='w-fit h-full flex flex-col justify-start gap-3 items-start'>
+          <h2 className='text-xl font-bold'>Price</h2>
+          <div className='w-full'>
+            <div
+              id='item_name'
+              className='w-full bg-white sm:w-80 h-12 rounded-md px-5 py-3 shadow-md shadow-accent border-2 border-black/50 border-t-accent border-l-accent focus-within:border-black/50 focus-within:border-b-accent focus-within:border-r-accent focus-within:outline-none text-light-font transition-all flex justify-start items-center gap-3'>
+              <span className='text-xl font-bold'>$</span>
+              <input
+                type='number'
+                min={0.00}
+                step={0.01}
+                className='w-full outline-none'
+                placeholder='Amount'
+                required
+                onInput={(event) => setPrice(parseFloat((event.target as HTMLInputElement).value))}
+                value={price} />
+            </div>
+          </div>
+        </div>
+        <div className='w-fit h-full flex flex-col justify-start gap-3 items-start'>
+          <h2 className='text-xl font-bold'>Supply</h2>
+          <div className='w-full'>
+            <div
+              id='item_name'
+              className='w-full sm:w-80 h-12 bg-white rounded-md px-5 py-3 shadow-md shadow-accent border-2 border-black/50 border-t-accent border-l-accent focus-within:border-black/50 focus-within:border-b-accent focus-within:border-r-accent focus-within:outline-none text-light-font transition-all flex justify-start gap-3'>
+              <input
+                type='number'
+                className='w-full outline-none'
+                placeholder='Supply'
+                required
+                onInput={(event) => setSupply(parseInt((event.target as HTMLInputElement).value))}
+                value={supply} />
+            </div>
           </div>
         </div>
       </div>

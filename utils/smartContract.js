@@ -6,7 +6,8 @@ import {
 } from "../constants/index";
 import { useNetwork } from "wagmi";
 
-export const callContract = async (title, description, price, image) => {
+export const callContract = async (props) => {
+  const { uri, supply, price, address} = props;
   if (ethereum) {
     try {
       // request for account access
@@ -29,11 +30,12 @@ export const callContract = async (title, description, price, image) => {
 
     try {
       console.log("FINGERS CROSSED");
+      console.log(address);
       const tx = await contract.createCourse(
-        "SOMETHING",
-        100,
-        10000,
-        "0x039a8561e235cf960bfed66aad74441e3594abb4"
+        uri,
+        supply,
+        price,
+        address
       );
       console.log("tx", tx);
       const receipt = await tx.wait();

@@ -13,8 +13,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from 'next/link';
+import { useRouter } from "next/router";
 
 export default function Sidebar() {
+    const router = useRouter();
     const menu = [
         { label: 'QuickStart', icon: faBoltLightning, disabled:false },
         { label: 'Products', icon: faBox, disabled:false },
@@ -35,10 +37,7 @@ export default function Sidebar() {
             </div>
             {menu.map(item => {
                 return (
-                    <Link key={item.label}
-                        href={'/' + item.label.toLowerCase()}
-                        passHref
-                    >
+                    <div onClick={()=>!item.disabled && router.push('/' + item.label.toLowerCase())} key={item.label}>
                         <div className={`flex justify-start items-center gap-5 py-4 px-8 ${item.disabled&&'text-light-button-gray/50'}`}>
                             <div className='pr-2'>
                                 <FontAwesomeIcon
@@ -50,7 +49,7 @@ export default function Sidebar() {
                             </div>
                             <h1 className='text-lg'>{item.label}</h1>
                         </div>
-                    </Link>
+                    </div>
                 )
             })}
         </div>

@@ -2,20 +2,15 @@ import { ThirdwebStorage } from "@thirdweb-dev/storage";
 import { NextPage } from "next";
 import absoluteUrl from "next-absolute-url";
 import { useRouter } from "next/router";
-import { callContract } from "../../../utils/smartContract";
 import { useEffect, useState } from "react";
-import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
+import { useAccount } from "wagmi";
 import Breadcrumb from "../../../components/Breadcrumb";
+import HamsterLoader from "../../../components/HamsterLoader";
 import BasicTab from "../../../components/Products/BasicTab";
 import PreviewTab from "../../../components/Products/PreviewTab";
+import { callContract } from "../../../utils/smartContract";
 import Button from "./../../../components/Button";
 import CustomizeTab from "./../../../components/Products/CustomizeTab";
-import HamsterLoader from "../../../components/HamsterLoader";
-import {
-  FACTORY_CONTRACT_ABI,
-  MANTLE_FACTORY_CONTRACT_ADDRESS,
-} from "../../../constants";
-import { error } from "console";
 
 type Product = () => {
   title: string;
@@ -54,7 +49,7 @@ const CreateProduct: NextPage = () => {
   const [file, setFile] = useState<string | undefined>();
   const [tags, setTags] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [tokenId, setTokenId] = useState("");
+  const [supply, setSupply] = useState<number>(1);
 
   const hooks = {
     product: product,
@@ -67,6 +62,8 @@ const CreateProduct: NextPage = () => {
     setCategory: setCategory,
     price: price,
     setPrice: setPrice,
+    supply: supply,
+    setSupply: setSupply,
     description: description,
     setDescription: setDescription,
     file: file,
@@ -83,13 +80,14 @@ const CreateProduct: NextPage = () => {
         cover: cover as string,
         category: category as unknown as string,
         price: price as number,
+        supply: supply as number,
         description: description as string,
         file: file as string,
         tags: tags as string[],
         status: "Published",
       };
     });
-  }, [name, cover, category, price, description, file, tags]);
+  }, [name, cover, category, price, supply, description, file, tags]);
 
   const uploading = async (e: any) => {
     const storage = new ThirdwebStorage();
@@ -111,8 +109,8 @@ const CreateProduct: NextPage = () => {
       }),
     });
     let json = await res.json();
-    uploading(product);
-    await callContract();
+    const uri = await uploading(product);
+    await callContract({uri, supply, price, address});;
     setLoading(false);
     setProduct(undefined);
     router.replace("/products");
@@ -134,9 +132,12 @@ const CreateProduct: NextPage = () => {
           <div className="w-full h-full flex justify-end items-center gap-3">
             <Button
               color="error"
-              onClick={() => activeTab && setActiveTab(activeTab - 1)}
+              onClick={() => 
+                activeTab 
+                ? setActiveTab(activeTab - 1)
+                : router.replace("/products")}
             >
-              Back
+              {activeTab === 0 ? "Cancel" : "Back"}
             </Button>
             <Button
               onClick={() =>
