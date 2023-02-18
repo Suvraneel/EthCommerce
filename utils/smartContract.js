@@ -6,8 +6,7 @@ import {
 } from "../constants/index";
 import { useNetwork } from "wagmi";
 
-export const CallContract = async (title, description, price, image) => {
-  const chain = useNetwork();
+export const callContract = async (title, description, price, image) => {
   if (ethereum) {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     console.log("provider", provider);
@@ -16,7 +15,7 @@ export const CallContract = async (title, description, price, image) => {
     const contract = new ethers.Contract(
       // Polygon: 0x441d78a685da0dA6623363965Ab0AaF499Ba42dc
       // Mantle: 0x039a8561e235cf960bfed66aad74441e3594abb4
-      "0x441d78a685da0dA6623363965Ab0AaF499Ba42dc",
+      "0xC651cda1575c6da36C43751cAaC30f757b96f8eC",
       HARSH_ABI,
       signer
     );

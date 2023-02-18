@@ -2,7 +2,7 @@ import { ThirdwebStorage } from "@thirdweb-dev/storage";
 import { NextPage } from "next";
 import absoluteUrl from "next-absolute-url";
 import { useRouter } from "next/router";
-import { CallContract } from "../../../utils/smartContract";
+import { callContract } from "../../../utils/smartContract";
 import { useEffect, useState } from "react";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 import Breadcrumb from "../../../components/Breadcrumb";
@@ -112,7 +112,7 @@ const CreateProduct: NextPage = () => {
     });
     let json = await res.json();
     uploading(product);
-    await CallContract();
+    await callContract();
     setLoading(false);
     setProduct(undefined);
     router.replace("/products");

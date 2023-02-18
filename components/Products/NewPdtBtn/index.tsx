@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import styles from "./NewPdtBtn.module.css";
-import { CallContract } from "../../../utils/smartContract";
+import { callContract } from "../../../utils/smartContract";
 
 const NewPdtBtn = () => {
   return (
@@ -22,7 +22,7 @@ const NewPdtBtn = () => {
           New Product
         </button>
       </Link>
-      <button onClick={CallContract}>Testing</button>
+      <button onClick={callContract}>Testing</button>
     </div>
   );
 };
