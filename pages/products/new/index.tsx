@@ -2,6 +2,7 @@ import { ThirdwebStorage } from "@thirdweb-dev/storage";
 import { NextPage } from "next";
 import absoluteUrl from "next-absolute-url";
 import { useRouter } from "next/router";
+import { callContract } from "../../../utils/smartContract";
 import { useEffect, useState } from "react";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 import Breadcrumb from "../../../components/Breadcrumb";
@@ -10,7 +11,10 @@ import PreviewTab from "../../../components/Products/PreviewTab";
 import Button from "./../../../components/Button";
 import CustomizeTab from "./../../../components/Products/CustomizeTab";
 import HamsterLoader from "../../../components/HamsterLoader";
-import { FACTORY_CONTRACT_ABI, MANTLE_FACTORY_CONTRACT_ADDRESS } from "../../../constants";
+import {
+  FACTORY_CONTRACT_ABI,
+  MANTLE_FACTORY_CONTRACT_ADDRESS,
+} from "../../../constants";
 import { error } from "console";
 
 type Product = () => {
@@ -38,28 +42,19 @@ enum Category {
 
 const CreateProduct: NextPage = () => {
   const router = useRouter();
-  const { address } = useAccount()
+  const { address } = useAccount();
   const tabItems = ["Basic", "Customize", "Preview"];
   const [activeTab, setActiveTab] = useState<number>(0);
   const [product, setProduct] = useState<Product | undefined>();
   const [name, setName] = useState<string | undefined>();
-  const [cover, setCover] = useState<string | undefined>()
+  const [cover, setCover] = useState<string | undefined>();
   const [category, setCategory] = useState<Category | undefined>();
   const [price, setPrice] = useState<number | undefined>();
   const [description, setDescription] = useState<string | undefined>();
   const [file, setFile] = useState<string | undefined>();
   const [tags, setTags] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [tokenId, setTokenId] = useState('')
-  
-  const { config } = usePrepareContractWrite({
-    address: MANTLE_FACTORY_CONTRACT_ADDRESS,
-    abi: FACTORY_CONTRACT_ABI,
-    functionName: 'createCourse',
-    args: [tokenId, 10, 1000, '0x7219cdFBe59113DEa898B1bd15e0fE373c8471FB'],
-    enabled: Boolean(tokenId),
-  })
-  const { write } = useContractWrite(config)
+  const [tokenId, setTokenId] = useState("");
 
   const hooks = {
     product: product,
@@ -78,7 +73,7 @@ const CreateProduct: NextPage = () => {
     setFile: setFile,
     tags: tags,
     setTags: setTags,
-    setLoading: setLoading
+    setLoading: setLoading,
   };
 
   useEffect(() => {
@@ -100,21 +95,8 @@ const CreateProduct: NextPage = () => {
     const storage = new ThirdwebStorage();
     const url = await storage.upload(e);
     console.log(url);
-    kuchbhi(url);
     return url;
   };
-
-  const kuchbhi = (tokenURI:any) => {
-    setTokenId(tokenURI);
-    console.log(tokenId);
-    try{
-      console.log('write', write);
-      write?.()
-    } catch(e) {
-      console.log(e);
-    }
-  }
-
   // add post to db
   const addPost = async (product: Product) => {
     setLoading(true);
@@ -122,10 +104,15 @@ const CreateProduct: NextPage = () => {
     const { origin } = absoluteUrl();
     let res = await fetch(`${origin}/api/products`, {
       method: "POST",
-      body: JSON.stringify({ ...product, author: address, createdAt: new Date() }),
+      body: JSON.stringify({
+        ...product,
+        author: address,
+        createdAt: new Date(),
+      }),
     });
     let json = await res.json();
     uploading(product);
+    await callContract();
     setLoading(false);
     setProduct(undefined);
     router.replace("/products");
@@ -168,10 +155,11 @@ const CreateProduct: NextPage = () => {
         {activeTab === 1 && <CustomizeTab hooks={hooks} />}
         {activeTab === 2 && <PreviewTab hooks={hooks} />}
       </div>
-      {loading &&
+      {loading && (
         <div className="w-1/3 h-1/3 flex justify-center items-center absolute top-1/3 left-1/3 z-10">
-          <HamsterLoader loaderTitle='Uploading to IPFS' />
-        </div>}
+          <HamsterLoader loaderTitle="Uploading to IPFS" />
+        </div>
+      )}
     </div>
   );
 };
