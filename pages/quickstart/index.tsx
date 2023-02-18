@@ -29,7 +29,7 @@ const Quickstart: NextPage = () => {
                 </div>
                 <div className="w-full h-fit flex flex-row justify-end bg-white rounded-md border-2 border-black px-10 py-8 relative snap-center snap-always">
                     <div className='flex w-2/5 h-full overflow-hidden flex-col justify-center item-center'>
-                        <SplineObject scene={'https://prod.spline.design/q4ckei-dUrws-Koy/scene.splinecode'} className='' />
+                        <SplineObject scene={'https://prod.spline.design/I9eCSX2gBF0BHFHq/scene.splinecode'} className='' />
                     </div>
                     <div className="flex flex-col justify-start gap-4 text-xl w-full sm:w-3/5">
                         <h1 className='text-4xl font-bold'>Turn Your Virtual Self into Real Profit with Our Avatar and AR Character Marketplace!</h1>
