@@ -12,7 +12,6 @@ import {
     faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from 'next/link';
 import { useRouter } from "next/router";
 
 export default function Sidebar() {
@@ -32,8 +31,8 @@ export default function Sidebar() {
     return (
         <div
             className='flex flex-col transition-all	ease-out duration-1000 w-20 hover:w-56 h-screen bg-black text-white divide-y divide-blue-200 overflow-hidden sticky top-0 left-0 z-10'>
-            <div className="h-20">
-                <img src='images/Gumroad_logo.png' className='w-full invert p-8' alt='logo'/>
+            <div className="h-fit">
+                <img src='logo.png' className='w-full invert p-2' alt='logo'/>
             </div>
             {menu.map(item => {
                 return (

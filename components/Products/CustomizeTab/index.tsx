@@ -1,21 +1,15 @@
 import { faHashtag, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ThirdwebStorage } from "@thirdweb-dev/storage";
 import {
   Key,
-  ReactChild,
-  ReactFragment,
-  ReactPortal,
-  useEffect,
   useRef,
-  useState,
+  useState
 } from "react";
-import lighthouse from "@lighthouse-web3/sdk";
-import { ThirdwebStorage } from "@thirdweb-dev/storage";
-import { NFTStorage } from "nft.storage";
 
 const CustomizeTab = (props: any) => {
   const { hooks } = props;
-  const { description, setDescription, file, setFile, tags, setTags, setLoading } = hooks;
+  const { description, setDescription, setFile, tags, setTags, setLoading } = hooks;
   const [currDrop, setCurrDrop] = useState<string|undefined>();
   let fileInputRef = useRef<HTMLInputElement>(null);
   let tagInputRef = useRef<HTMLInputElement>(null);
@@ -86,11 +80,9 @@ const CustomizeTab = (props: any) => {
               name="file_upload"
               className="hidden"
               onChange={(ev) => {
-                console.log("UPLOADING STUFF ON LIGHTHOUSE!!");
                 setLoading(true);
                 setCurrDrop(ev.target.files?.[0]?.name);
                 uploading(ev.target.files?.[0]);
-                console.log("UPLOADED STUFF ON LIGHTHOUSE!!");
                 console.log(ev.target.files?.[0]);
               }}
             />
@@ -123,18 +115,12 @@ const CustomizeTab = (props: any) => {
         <div className="flex flex-row flex-wrap gap-2">
           {tags.map(
             (
-              item:
-                | boolean
-                | ReactChild
-                | ReactFragment
-                | ReactPortal
-                | null
-                | undefined,
+              item: any,
               i: Key | null | undefined
             ) => {
               return (
                 <div
-                  key={i}
+                  key={item}
                   className="flex flex-start gap-3 w-fit px-3 py-2 rounded-full border-2 border-black/50 bg-white hover:bg-accent"
                 >
                   <div className="flex flex-row justify-start items-center">

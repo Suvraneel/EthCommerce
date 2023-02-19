@@ -1,6 +1,5 @@
-import React, { Suspense, useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import dynamic from "next/dynamic";
+import { Suspense, useEffect, useState } from "react";
 import HamsterLoader from "../HamsterLoader";
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
