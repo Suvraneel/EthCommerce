@@ -79,7 +79,7 @@ export default function Layout(props: Props) {
   return (
     <div className="w-screen h-screen">
       <Head>
-        <title>NextJS wagmi</title>
+        <title>EthCommerce | Open-Sorcerers</title>
         <meta name="description" content="NextJS and wagmi template" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
